@@ -1,9 +1,5 @@
 # Findings Memo: Does Weather Cause Flight Delays?
 
-**To:** Hiring reviewer / portfolio reader
-**From:** Christopher Toon
-**Re:** Statistical analysis of precipitation's effect on departure delays, NYC airports, 2013
-
 ## Bottom line
 
 Yes — precipitation is associated with a statistically significant and
