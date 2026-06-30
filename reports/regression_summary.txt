@@ -1,0 +1,46 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          dep_delay_min   R-squared:                       0.030
+Model:                            OLS   Adj. R-squared:                  0.030
+Method:                 Least Squares   F-statistic:                     507.6
+Date:                Tue, 30 Jun 2026   Prob (F-statistic):               0.00
+Time:                        21:02:42   Log-Likelihood:            -1.6556e+06
+No. Observations:              326848   AIC:                         3.311e+06
+Df Residuals:                  326827   BIC:                         3.311e+06
+Df Model:                          20                                         
+Covariance Type:            nonrobust                                         
+====================================================================================
+                       coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------------
+Intercept           22.1760      0.385     57.583      0.000      21.421      22.931
+C(carrier)[T.AA]    -3.2330      0.298    -10.863      0.000      -3.816      -2.650
+C(carrier)[T.B6]     1.1680      0.275      4.242      0.000       0.628       1.708
+C(carrier)[T.DL]    -2.6575      0.273     -9.752      0.000      -3.192      -2.123
+C(carrier)[T.EV]     7.9964      0.233     34.306      0.000       7.539       8.453
+C(carrier)[T.MQ]    -0.8787      0.320     -2.746      0.006      -1.506      -0.252
+C(carrier)[T.US]    -7.5432      0.335    -22.504      0.000      -8.200      -6.886
+C(carrier)[T.WN]     6.1671      0.390     15.821      0.000       5.403       6.931
+C(carrier)[T.VX]     0.5213      0.574      0.909      0.363      -0.603       1.645
+C(carrier)[T.FL]     7.2490      0.719     10.081      0.000       5.840       8.658
+C(carrier)[T.AS]    -6.1583      1.451     -4.244      0.000      -9.002      -3.314
+C(carrier)[T.9E]     4.8799      0.369     13.236      0.000       4.157       5.603
+C(carrier)[T.F9]     7.8714      1.489      5.285      0.000       4.952      10.790
+C(carrier)[T.HA]   -10.7921      2.100     -5.139      0.000     -14.908      -6.676
+C(carrier)[T.YV]     8.3781      1.663      5.038      0.000       5.119      11.637
+C(carrier)[T.OO]     1.9595      7.121      0.275      0.783     -11.998      15.917
+C(origin)[T.LGA]    -1.6853      0.206     -8.192      0.000      -2.088      -1.282
+C(origin)[T.JFK]    -1.1257      0.225     -5.005      0.000      -1.567      -0.685
+precip_in           84.9932      2.393     35.524      0.000      80.304      89.683
+wind_speed_mph       0.4147      0.012     33.588      0.000       0.390       0.439
+visib_mi            -1.5629      0.036    -43.505      0.000      -1.633      -1.492
+==============================================================================
+Omnibus:                   266198.422   Durbin-Watson:                   1.340
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):          6609895.675
+Skew:                           3.880   Prob(JB):                         0.00
+Kurtosis:                      23.619   Cond. No.                     1.61e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.61e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.

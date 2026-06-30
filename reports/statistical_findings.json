@@ -1,0 +1,43 @@
+{
+  "dataset": "nycflights13 (real US DOT + NOAA data, 2013, NYC origin airports)",
+  "n_flights_analyzed": 326848,
+  "ttest_precip_vs_clear": {
+    "n_precip_days_flights": 21078,
+    "n_clear_days_flights": 305770,
+    "mean_delay_precip": 30.67,
+    "mean_delay_clear": 11.24,
+    "mean_difference_minutes": 19.43,
+    "ci_95_low": 18.64,
+    "ci_95_high": 20.22,
+    "t_statistic": 48.227,
+    "p_value": 0.0,
+    "significant_at_05": true
+  },
+  "regression": {
+    "r_squared": 0.0301,
+    "n_obs": 326848,
+    "reference_carrier": "UA",
+    "reference_origin": "EWR",
+    "weather_effects": {
+      "precip_in": {
+        "coefficient": 84.993,
+        "p_value": 7.168467038711992e-276,
+        "ci_95_low": 80.304,
+        "ci_95_high": 89.683
+      },
+      "wind_speed_mph": {
+        "coefficient": 0.415,
+        "p_value": 6.711021845194848e-247,
+        "ci_95_low": 0.39,
+        "ci_95_high": 0.439
+      },
+      "visib_mi": {
+        "coefficient": -1.563,
+        "p_value": 0.0,
+        "ci_95_low": -1.633,
+        "ci_95_high": -1.492
+      }
+    },
+    "interpretation": "Holding carrier and origin airport constant, each additional inch of hourly precipitation is associated with a 85.0-minute change in average departure delay (p=0.0000)."
+  }
+}
