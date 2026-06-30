@@ -1,152 +1,349 @@
-# Flight Delay & Weather Impact Analysis
+# ✈️ Flight Delay & Weather Impact Analysis
 
-End-to-end analytics project: real flight and weather data → PostgreSQL
-star schema → statistical inference (t-test + regression) → interactive
-Streamlit dashboard.
+End-to-end analytics project using **real flight and weather data** to build a complete analytics pipeline:
 
-**[Findings memo](reports/findings_memo.md)** — the actual analyst deliverable, written for a non-technical reader.
+**Real Data → Python ETL → PostgreSQL Star Schema → SQL Analysis → Statistical Inference → Interactive Streamlit Dashboard**
 
-## Why this project, and what's real
+## 🚀 Live Dashboard
 
-This project intentionally uses **real, publicly sourced data** —
-336,776 actual flights departing NYC airports (JFK, LGA, EWR) in 2013,
-joined with real hourly weather observations at each airport. The
-data comes from the [`nycflights13`](https://github.com/tidyverse/nycflights13)
-dataset (CC0 / public domain), originally compiled from the **US DOT
-Bureau of Transportation Statistics** (flight records) and **NOAA**
-(weather records).
+**https://YOUR-STREAMLIT-LINK.streamlit.app/**
 
-I'm explicit about this because [another project in my portfolio](https://github.com/ctoon01/cannabis-retail-intelligence-platform)
-uses simulated business data — that project showcases schema design
-and ETL on a clean synthetic dataset; this one showcases handling
-real-world data (real nulls, real cancellations, real join-key
-mismatches) and real statistical inference.
+---
 
-## What this project demonstrates
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-red)
+![SciPy](https://img.shields.io/badge/SciPy-Statistics-654FF0)
+![statsmodels](https://img.shields.io/badge/statsmodels-Regression-orange)
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B)
+![Plotly](https://img.shields.io/badge/Plotly-Visualization-3F4F75)
+![GitHub%20Actions](https://img.shields.io/badge/CI-GitHub%20Actions-success)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-- **Star-schema data modeling** — one fact table, five dimension tables, proper FK constraints.
-- **ETL with documented, defensible cleaning decisions** — not just `dropna()`. See `etl/transform.py` docstring for the full list (cancelled flights flagged not dropped, no silent zero-fills, FK integrity checks, etc).
-- **SQL depth** — multi-table joins, CTEs, and window functions (`RANK()`, rolling-average frames) — see `sql/analysis_queries.sql`.
-- **Real statistical inference** — Welch's t-test and multiple linear regression with confounder controls, confidence intervals, and disclosed model limitations (R²) — not just descriptive averages.
-- **Reproducible pipeline** — `run_pipeline.sh` runs extract → transform → test → load → analyze in one command, and the same steps run in CI on every push.
-- **Deployable dashboard** — Streamlit + Plotly, with a portable SQLite fallback so it runs standalone with no database server required.
+---
 
-## Architecture
+# 📸 Dashboard Preview
 
-```
- raw data (GitHub-hosted CC0 source)
-        │  etl/extract.py
-        ▼
- data/raw/*.rda  →  data/raw/*.csv
-        │  etl/transform.py  (cleaning, FK checks, reshaping)
-        ▼
- data/clean/*.csv  →  tests/test_etl.py  (data quality gate)
-        │  etl/load.py
-        ▼
- PostgreSQL star schema (sql/schema.sql)
-        │  analysis/statistical_analysis.py
-        ▼
- reports/statistical_findings.json + findings_memo.md
+
+![Dashboard](images/dashboard.png)
+
+---
+
+# 📋 At a Glance
+
+| Metric | Value |
+|---------|------:|
+| Flights Analyzed | **336,776** |
+| Airports | **3 (JFK, LGA, EWR)** |
+| Weather Observations | **Hourly NOAA Data** |
+| Fact Table | **336,776 Rows** |
+| Dimension Tables | **5** |
+| Database | **PostgreSQL** |
+| Dashboard | **Streamlit + Plotly** |
+
+---
+
+## 📄 Findings Memo
+
+The primary analyst deliverable written for a non-technical audience:
+
+➡️ **[reports/findings_memo.md](reports/findings_memo.md)**
+
+---
+
+# Project Overview
+
+This project intentionally uses **real, publicly available data** rather than simulated data.
+
+It analyzes **336,776 real commercial flights** departing New York City airports (JFK, LGA, and EWR) during 2013 and joins them with real hourly weather observations.
+
+The data comes from the **nycflights13** dataset (CC0/Public Domain), originally compiled from:
+
+- US Department of Transportation Bureau of Transportation Statistics
+- National Oceanic and Atmospheric Administration (NOAA)
+
+Unlike another project in my portfolio that uses synthetic business data, this project demonstrates handling **real-world data challenges**, including:
+
+- Missing values
+- Cancelled flights
+- Join-key mismatches
+- Statistical inference
+- Reproducible ETL pipelines
+
+---
+
+# Executive Summary
+
+Analysis of **336,776 flights** found a statistically significant relationship between precipitation and departure delays.
+
+Flights departing during measurable precipitation experienced delays averaging **19.4 minutes longer** than flights departing under dry conditions.
+
+Multiple linear regression confirmed precipitation as a statistically significant predictor of departure delay even after controlling for airline and airport effects.
+
+Although weather contributes meaningfully to delays, the relatively low model R² demonstrates that operational factors beyond weather explain most of the variation in departure performance.
+
+---
+
+# Skills Demonstrated
+
+- Python
+- PostgreSQL
+- SQL
+- ETL Development
+- Star Schema Design
+- SQL Window Functions
+- Statistical Analysis
+- Welch's t-test
+- Multiple Linear Regression
+- Data Visualization
+- Business Intelligence
+- GitHub Actions
+- CI/CD
+- Streamlit
+- Plotly
+
+---
+
+# What this project demonstrates
+
+- Star-schema data modeling using one fact table and five dimensions
+- Python ETL pipeline with documented cleaning decisions
+- SQL joins, CTEs, window functions, and analytical queries
+- Statistical inference using Welch's t-test and multiple linear regression
+- Reproducible analytics pipeline executed with a single command
+- Interactive dashboard built using Streamlit and Plotly
+- Portable deployment using SQLite fallback when PostgreSQL is unavailable
+
+---
+
+# Architecture
+
+```text
+Raw Data (GitHub-hosted CC0)
+
         │
         ▼
- dashboard/app.py  (Streamlit + Plotly)
+
+etl/extract.py
+
+        │
+        ▼
+
+Raw CSV Files
+
+        │
+        ▼
+
+etl/transform.py
+
+Cleaning
+Validation
+Foreign Key Checks
+Star Schema Preparation
+
+        │
+        ▼
+
+tests/test_etl.py
+
+Data Quality Validation
+
+        │
+        ▼
+
+etl/load.py
+
+        │
+        ▼
+
+PostgreSQL Star Schema
+
+        │
+        ▼
+
+analysis/statistical_analysis.py
+
+        │
+        ▼
+
+Reports
+
+JSON Results
+
+Executive Memo
+
+        │
+        ▼
+
+Streamlit Dashboard
 ```
 
-## Schema
+---
 
-**Fact table:** `fact_flights` — one row per real flight (336,776 rows)
-**Dimensions:** `dim_date`, `dim_airport`, `dim_airline`, `dim_plane`, `dim_weather`
+# Schema
 
-Flights join to weather on `(origin, time_hour)`. Full DDL in [`sql/schema.sql`](sql/schema.sql).
+**Fact Table**
 
-## Key findings
+- fact_flights
 
-- Flights during hours with measurable precipitation were delayed an
-  average of **30.9 minutes**, vs. **11.4 minutes** on clear hours — a
-  **19.4-minute difference** (95% CI: 18.6–20.2 min, p < 0.001, n=326,848).
-- In a regression controlling for carrier and origin airport, each
-  additional inch of hourly precipitation is associated with an
-  **85-minute increase** in average departure delay (p < 0.001).
-- Model R² is low (0.03) — disclosed deliberately. Weather has a real,
-  statistically robust effect, but individual flight delay has far
-  more variance than weather alone explains.
+**Dimension Tables**
 
-Full writeup, caveats, and methodology: [`reports/findings_memo.md`](reports/findings_memo.md).
+- dim_date
+- dim_airport
+- dim_airline
+- dim_plane
+- dim_weather
 
-## Running it locally
+Flights join to weather using:
+
+```
+(origin, time_hour)
+```
+
+Complete schema:
+
+```
+sql/schema.sql
+```
+
+---
+
+# Business Questions Answered
+
+- Does precipitation significantly increase departure delays?
+- Which airports experience the greatest weather-related disruption?
+- Can weather predict departure delays?
+- How much variation in delays can weather explain?
+- Which operational factors appear more influential than weather?
+
+---
+
+# Key Findings
+
+- Flights during measurable precipitation averaged **30.9 minutes** of departure delay.
+- Flights during dry conditions averaged **11.4 minutes**.
+- Difference: **19.4 minutes** (95% CI 18.6–20.2 minutes, p < 0.001).
+- Regression estimated an **85-minute increase** in delay per additional inch of hourly precipitation after controlling for airline and airport.
+- Model R² = **0.03**, demonstrating weather has a statistically significant but limited explanatory effect.
+
+Complete analysis:
+
+**reports/findings_memo.md**
+
+---
+
+# Running Locally
 
 ```bash
-# 1. Clone and install
-git clone https://github.com/<your-username>/flight-delay-weather-analysis.git
+git clone https://github.com/ctoon01/flight-delay-weather-analysis.git
+
 cd flight-delay-weather-analysis
+
 pip install -r requirements.txt
 
-# 2. Start PostgreSQL (or point PG* env vars at an existing instance)
-#    Defaults: localhost:5432, db=flight_delay_analysis, user/pass=postgres/postgres
-
-# 3. Run the full pipeline
 bash run_pipeline.sh
 
-# 4. Launch the dashboard
 streamlit run dashboard/app.py
 ```
 
-## Running the dashboard without PostgreSQL
+---
 
-The dashboard falls back to a bundled SQLite snapshot
-(`data/flight_delay_analysis.db`, built from the same pipeline) if no
-`DATABASE_URL` environment variable is set. This is what makes it
-deployable on Streamlit Community Cloud with zero database setup:
+# Running Without PostgreSQL
+
+The dashboard automatically falls back to a bundled SQLite database if PostgreSQL is unavailable.
+
+This allows deployment on Streamlit Community Cloud without requiring a database server.
+
+To connect to PostgreSQL instead:
 
 ```bash
-streamlit run dashboard/app.py    # uses bundled SQLite automatically
+export DATABASE_URL="postgresql+psycopg2://user:password@host:5432/flight_delay_analysis"
 ```
 
-To point it at a live Postgres instance instead, set:
-```bash
-export DATABASE_URL="postgresql+psycopg2://user:pass@host:5432/flight_delay_analysis"
+---
+
+# Cloud Migration
+
+The project is warehouse-agnostic and can be migrated to:
+
+- Google BigQuery
+- Snowflake
+- PostgreSQL Cloud
+
+Only the SQLAlchemy connection string must change.
+
+---
+
+# Project Structure
+
+```text
+etl/
+analysis/
+dashboard/
+sql/
+reports/
+tests/
+.github/workflows/
+
+run_pipeline.sh
+README.md
+requirements.txt
 ```
 
-## Migrating to a cloud warehouse (BigQuery / Snowflake)
+---
 
-The schema and load step are warehouse-agnostic SQL — to move off
-local Postgres onto a free-tier cloud warehouse:
-1. Create a free BigQuery sandbox or Snowflake trial account.
-2. Adjust `etl/load.py`'s connection string to the warehouse's
-   SQLAlchemy dialect (`bigquery://` or `snowflake://`).
-3. Re-run `python etl/load.py` — the schema DDL and load logic are
-   otherwise unchanged.
+# Technology Stack
 
-This step needs your own cloud account credentials, so it's left as
-a configuration change rather than baked into the pipeline.
+- Python
+- PostgreSQL
+- SQLAlchemy
+- Pandas
+- SciPy
+- statsmodels
+- Plotly
+- Streamlit
+- GitHub Actions
+- Git
+- SQL
 
-## Project structure
+---
 
-```
-etl/extract.py          Pulls real source data (GitHub-hosted CC0)
-etl/transform.py         Cleans and reshapes into star schema
-etl/load.py               Loads into PostgreSQL
-sql/schema.sql             Star schema DDL
-sql/analysis_queries.sql    Reference SQL: joins, CTEs, window functions
-analysis/statistical_analysis.py   t-test + regression
-dashboard/app.py            Streamlit dashboard
-reports/findings_memo.md     Analyst writeup
-reports/statistical_findings.json  Machine-readable results
-tests/test_etl.py             Data quality tests (run in CI)
-run_pipeline.sh                 One-command pipeline runner
-.github/workflows/ci.yml         CI: runs the full pipeline + tests on every push
-```
+# Resume Highlights
 
-## Tech stack
+This project demonstrates experience with:
 
-Python · PostgreSQL · SQLAlchemy · Pandas · SciPy · statsmodels · Streamlit · Plotly · GitHub Actions
+- Building reproducible ETL pipelines
+- Designing PostgreSQL star schemas
+- Writing analytical SQL with joins, CTEs, and window functions
+- Performing statistical inference using SciPy and statsmodels
+- Building interactive dashboards with Streamlit and Plotly
+- Automating workflows with GitHub Actions
+- Communicating findings to non-technical stakeholders
 
-## Data attribution
+---
 
-Flight and weather data: [`nycflights13`](https://github.com/tidyverse/nycflights13)
-(CC0), compiled from the US DOT Bureau of Transportation Statistics
-and NOAA. This project's code is MIT licensed — see [`LICENSE`](LICENSE).
+# Data Attribution
 
-## Author
+Flight and weather data:
 
-Christopher Toon — [github.com/ctoon01](https://github.com/ctoon01)
+https://github.com/tidyverse/nycflights13
+
+Compiled from:
+
+- US DOT Bureau of Transportation Statistics
+- NOAA
+
+Dataset License: CC0 / Public Domain
+
+Project Code License: MIT
+
+---
+
+# Author
+
+## Christopher Toon
+
+GitHub:
+
+https://github.com/ctoon01
