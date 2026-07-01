@@ -26,7 +26,6 @@ End-to-end analytics project using **real flight and weather data** to build a c
 # 📸 Dashboard Preview
 
 
-![Dashboard](images/dashboard.png)
 
 ---
 
